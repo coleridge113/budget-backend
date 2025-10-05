@@ -50,6 +50,17 @@ class ExpenseController (
         }
     }
 
+    @PostMapping("/add")
+    fun addExpenses(@Valid @RequestBody expenses: List<Expense>): ResponseEntity<List<Expense>> {
+        return try {
+            service.addExpenses(expenses)
+            ResponseEntity.status(HttpStatus.CREATED).body(expenses)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ResponseEntity.internalServerError().body(null)
+        }
+    }
+
     @PutMapping("{id}")
     fun updateExpense(@Valid @RequestBody expense: Expense, @PathVariable("id") id: Long): ResponseEntity<Expense> {
         return try {

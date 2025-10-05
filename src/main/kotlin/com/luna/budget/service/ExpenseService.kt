@@ -29,6 +29,15 @@ class ExpenseService (
         return repository.save(expense)
     }
 
+    fun addExpenses(expenses: List<Expense>): List<Expense> {
+        return try {
+            repository.saveAll(expenses)
+        } catch(e: IllegalArgumentException) {
+            e.printStackTrace()
+            emptyList()
+        }
+    }
+
     fun updateExpense(expense: Expense, id: Long): Expense {
         val existingExpense = repository.findByIdOrNull(id)
         return if(existingExpense != null) {
