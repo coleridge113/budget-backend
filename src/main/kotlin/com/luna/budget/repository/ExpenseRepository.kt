@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ExpenseRepository : JpaRepository<Expense, Int> {
+interface ExpenseRepository : JpaRepository<Expense, Long> {
 
     @Query(value = "SELECT * FROM expenses WHERE type = :type", nativeQuery = true)
     fun findByType(type: String): List<Expense?>

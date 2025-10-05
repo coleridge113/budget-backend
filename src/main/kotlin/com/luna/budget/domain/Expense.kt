@@ -1,7 +1,7 @@
 package com.luna.budget.domain
 
-import jakarta.annotation.Nullable
 import jakarta.persistence.*
+import java.math.BigDecimal
 import java.time.LocalDate
 
 @Entity
@@ -9,9 +9,9 @@ import java.time.LocalDate
 data class Expense(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    val id: Int,
+    val id: Long,
     val name: String?,
-    val cost: Long,
+    val amount: BigDecimal,
     val category: String,
     val type: String,
     val date: LocalDate = LocalDate.now()

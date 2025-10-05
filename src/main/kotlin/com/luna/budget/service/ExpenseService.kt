@@ -13,7 +13,7 @@ class ExpenseService (
         return repository.findAll()
     }
 
-    fun getExpenseById(id: Int): Expense? {
+    fun getExpenseById(id: Long): Expense? {
         return repository.findByIdOrNull(id)
     }
 
@@ -29,17 +29,24 @@ class ExpenseService (
         return repository.save(expense)
     }
 
-    fun updateExpense(expense: Expense, id: Int): Expense {
+    fun updateExpense(expense: Expense, id: Long): Expense {
         val existingExpense = repository.findByIdOrNull(id)
         return if(existingExpense != null) {
-            val updatedExpense = expense.copy(id = id)
+            val updatedExpense = existingExpense.copy(
+                name = expense.name,
+                amount = expense.amount,
+                category = expense.category,
+                type = expense.type,
+                date = existingExpense.date
+
+            )
             repository.save(updatedExpense)
         } else {
             throw IllegalStateException("Expense not found")
         }
     }
 
-    fun deleteExpense(id: Int) {
+    fun deleteExpense(id: Long) {
         repository.deleteById(id)
     }
 }

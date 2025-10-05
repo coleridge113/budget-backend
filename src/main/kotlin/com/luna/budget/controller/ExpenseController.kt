@@ -20,7 +20,7 @@ class ExpenseController (
     }
 
     @GetMapping("{id}")
-    fun getExpenseById(@PathVariable("id") id: Int): ResponseEntity<Expense?> {
+    fun getExpenseById(@PathVariable("id") id: Long): ResponseEntity<Expense?> {
         val expense = service.getExpenseById(id)
         return if (expense != null) {
             ResponseEntity.ok(expense)
@@ -51,7 +51,7 @@ class ExpenseController (
     }
 
     @PutMapping("{id}")
-    fun updateExpense(@Valid @RequestBody expense: Expense, @PathVariable("id") id: Int): ResponseEntity<Expense> {
+    fun updateExpense(@Valid @RequestBody expense: Expense, @PathVariable("id") id: Long): ResponseEntity<Expense> {
         return try {
             service.updateExpense(expense, id)
             ResponseEntity.ok(expense)
@@ -63,7 +63,7 @@ class ExpenseController (
     }
 
     @DeleteMapping("{id}")
-    fun deleteExpense(@PathVariable("id") id: Int): ResponseEntity<Boolean> {
+    fun deleteExpense(@PathVariable("id") id: Long): ResponseEntity<Boolean> {
         return try {
             val expense = service.getExpenseById(id)
             if (expense != null) {
