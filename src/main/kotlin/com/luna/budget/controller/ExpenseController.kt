@@ -39,7 +39,7 @@ class ExpenseController (
         return ResponseEntity.ok(service.getExpensesByCategory(category))
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     fun addExpense(@Valid @RequestBody expense: Expense): ResponseEntity<Expense> {
         return try {
             service.addExpense(expense)
@@ -50,7 +50,7 @@ class ExpenseController (
         }
     }
 
-    @PostMapping("/add")
+    @PostMapping("add/batch")
     fun addExpenses(@Valid @RequestBody expenses: List<Expense>): ResponseEntity<List<Expense>> {
         return try {
             service.addExpenses(expenses)
