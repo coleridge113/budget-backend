@@ -46,7 +46,7 @@ class ExpenseController (
             ResponseEntity.status(HttpStatus.CREATED).body(expense)
         } catch(e: Exception) {
             e.printStackTrace()
-            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)
+            ResponseEntity.internalServerError().body(null)
         }
     }
 
@@ -84,6 +84,7 @@ class ExpenseController (
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(false)
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             ResponseEntity.internalServerError().body(false)
         }
     }
