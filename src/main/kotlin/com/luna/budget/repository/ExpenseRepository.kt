@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository
 interface ExpenseRepository : JpaRepository<Expense, Long> {
 
     @Query(value = "SELECT * FROM expenses WHERE type = :type", nativeQuery = true)
-    fun findByType(type: String): List<Expense?>
+    fun findByType(type: String): List<Expense>
 
     @Query(value = "SELECT * FROM expenses WHERE category = :category", nativeQuery = true)
-    fun findByCategory(category: String): List<Expense?>
+    fun findByCategory(category: String): List<Expense>
 }

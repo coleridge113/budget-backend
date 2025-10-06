@@ -9,7 +9,7 @@ class ExpenseService (
     private val repository: ExpenseRepository
 ) {
 
-    fun getExpenses(): List<Expense?> {
+    fun getExpenses(): List<Expense> {
         return repository.findAll()
     }
 
@@ -17,11 +17,11 @@ class ExpenseService (
         return repository.findByIdOrNull(id)
     }
 
-    fun getExpensesByType(type: String): List<Expense?> {
+    fun getExpensesByType(type: String): List<Expense> {
         return repository.findByType(type)
     }
 
-    fun getExpensesByCategory(category: String): List<Expense?> {
+    fun getExpensesByCategory(category: String): List<Expense> {
         return repository.findByCategory(category)
     }
 

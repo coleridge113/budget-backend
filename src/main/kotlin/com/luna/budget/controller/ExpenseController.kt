@@ -15,12 +15,12 @@ class ExpenseController (
 ) {
 
     @GetMapping("/")
-    fun getExpenses(): ResponseEntity<List<Expense?>> {
+    fun getExpenses(): ResponseEntity<List<Expense>> {
         return ResponseEntity.ok(service.getExpenses())
     }
 
     @GetMapping("{id}")
-    fun getExpenseById(@PathVariable("id") id: Long): ResponseEntity<Expense?> {
+    fun getExpenseById(@PathVariable("id") id: Long): ResponseEntity<Expense> {
         val expense = service.getExpenseById(id)
         return if (expense != null) {
             ResponseEntity.ok(expense)
@@ -30,12 +30,12 @@ class ExpenseController (
     }
 
     @GetMapping("type/{type}")
-    fun getExpenseByType(@PathVariable("type") type: String): ResponseEntity<List<Expense?>> {
+    fun getExpenseByType(@PathVariable("type") type: String): ResponseEntity<List<Expense>> {
         return ResponseEntity.ok(service.getExpensesByType(type))
     }
 
     @GetMapping("category/{category}")
-    fun getExpenseByCategory(@PathVariable("category") category: String): ResponseEntity<List<Expense?>> {
+    fun getExpenseByCategory(@PathVariable("category") category: String): ResponseEntity<List<Expense>> {
         return ResponseEntity.ok(service.getExpensesByCategory(category))
     }
 
