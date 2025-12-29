@@ -22,4 +22,6 @@ class AuthService(
         val token = jwtService.generateToken(userDetails.username, userDetails.authorities.map { it.authority })
         return AuthResponse(token)
     }
+
+
 }

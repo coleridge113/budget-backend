@@ -24,6 +24,16 @@ class JwtService(@Value("\${jwt.secret}") secret: String) {
 
     fun extractUsername(token: String): String {
         return Jwts.parser().verifyWith(key).build()
-            .parseEncryptedClaims(token).payload.subject
+            .parseSignedClaims(token).payload.subject
+    }
+
+    fun validateToken(token: String): Boolean {
+        return try {
+            val claims = Jwts.parser().verifyWith(key).build()
+                .parseSignedClaims(token).payload
+            claims.expiration.after(Date())
+        } catch (e: Exception) {
+            false
+        }
     }
 }

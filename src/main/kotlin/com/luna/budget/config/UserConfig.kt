@@ -1,4 +1,4 @@
-package com.luna.budget.security
+package com.luna.budget.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
