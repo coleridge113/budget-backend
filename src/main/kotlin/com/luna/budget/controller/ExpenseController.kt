@@ -19,7 +19,7 @@ class ExpenseController (
         return ResponseEntity.ok(service.getExpenses())
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     fun getExpenseById(@PathVariable("id") id: Long): ResponseEntity<Expense> {
         val expense = service.getExpenseById(id)
         return if (expense != null) {
@@ -29,17 +29,17 @@ class ExpenseController (
         }
     }
 
-    @GetMapping("type/{type}")
+    @GetMapping("/type/{type}")
     fun getExpenseByType(@PathVariable("type") type: String): ResponseEntity<List<Expense>> {
         return ResponseEntity.ok(service.getExpensesByType(type))
     }
 
-    @GetMapping("category/{category}")
+    @GetMapping("/category/{category}")
     fun getExpenseByCategory(@PathVariable("category") category: String): ResponseEntity<List<Expense>> {
         return ResponseEntity.ok(service.getExpensesByCategory(category))
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     fun addExpense(@Valid @RequestBody expense: Expense): ResponseEntity<Expense> {
         return try {
             service.addExpense(expense)
@@ -50,7 +50,7 @@ class ExpenseController (
         }
     }
 
-    @PostMapping("add/batch")
+    @PostMapping("/add/batch")
     fun addExpenses(@Valid @RequestBody expenses: List<Expense>): ResponseEntity<List<Expense>> {
         return try {
             service.addExpenses(expenses)
@@ -61,7 +61,7 @@ class ExpenseController (
         }
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     fun updateExpense(@Valid @RequestBody expense: Expense, @PathVariable("id") id: Long): ResponseEntity<Expense> {
         return try {
             service.updateExpense(expense, id)
@@ -73,7 +73,7 @@ class ExpenseController (
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     fun deleteExpense(@PathVariable("id") id: Long): ResponseEntity<Boolean> {
         return try {
             val expense = service.getExpenseById(id)
