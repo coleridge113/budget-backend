@@ -3,6 +3,7 @@ package com.luna.budget.service
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import java.util.Date
 import javax.crypto.SecretKey
@@ -10,7 +11,7 @@ import javax.crypto.SecretKey
 @Service
 class JwtService(@Value("\${jwt.secret}") secret: String) {
     private val key: SecretKey = Keys.hmacShaKeyFor(secret.toByteArray())
-    private val expirationMillis = 15 * 60 * 1000 // 15 mins
+    private val expirationMillis = 1440 * 60 * 1000 // 24 hours
 
     fun generateToken(username: String, roles: List<String>): String {
         return Jwts.builder()
@@ -35,5 +36,15 @@ class JwtService(@Value("\${jwt.secret}") secret: String) {
         } catch (e: Exception) {
             false
         }
+    }
+
+    fun validateToken(token: String, userDetails: UserDetails): Boolean {
+        val username = extractUsername(token)
+        return username == userDetails.username && !isTokenExpired(token)
+    }
+
+    private fun isTokenExpired(token: String): Boolean {
+        return Jwts.parser().verifyWith(key).build()
+            .parseSignedClaims(token).payload.expiration.before(Date())
     }
 }

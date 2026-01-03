@@ -31,7 +31,9 @@ class AuthController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         val token = request.getHeader("Authorization")?.removePrefix("Bearer ")
-        if (token == null || !jwtService.validateToken(token)) {
+        val isValidToken = token != null && jwtService.validateToken(token)
+
+        if (!isValidToken) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build()
         }
 
