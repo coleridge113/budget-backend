@@ -6,11 +6,10 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "expenses")
-data class Expense(
+data class ExpensePreset(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     val id: Long,
-    val name: String?,
     val amount: BigDecimal,
     val category: String,
     val type: String,
